@@ -2,6 +2,7 @@ package com.vicent.demo.controller;
 
 import com.vicent.demo.entity.Product;
 import com.vicent.demo.entity.ProductRequest;
+import com.vicent.demo.entity.ProductResponse;
 import com.vicent.demo.parameter.ProductQueryParameter;
 import com.vicent.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +26,16 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable("id") String id){
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable("id") String id){
 
-        Product product = productService.getProduct(id);
+        ProductResponse product = productService.getProductResponse(id);
         return ResponseEntity.ok().body(product);
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductRequest request){
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest request){
 
-        Product product = productService.createProduct(request);
+        ProductResponse product = productService.createProduct(request);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -46,25 +47,25 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> replceProduct(
+    public ResponseEntity<ProductResponse> replceProduct(
             @PathVariable("id") String id, @Valid @RequestBody ProductRequest request){
 
-        Product product = productService.replaceProduct(id, request);
+        ProductResponse product = productService.replaceProduct(id, request);
         return ResponseEntity.ok().body(product);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable("id") String id){
+    public ResponseEntity deleteProduct(@PathVariable("id") String id){
 
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<List<ProductResponse>> getProducts(
             @ModelAttribute ProductQueryParameter param){
 
-        List<Product> products = productService.getProducts(param);
+        List<ProductResponse> products = productService.getProducts(param);
         return ResponseEntity.ok().body(products);
     }
 }
