@@ -181,6 +181,33 @@ public class ProductTest {
         Assert.assertTrue(productIds.contains(p4.getId()));
     }
 
+    @Test
+    public void get400WhenCreateProductWithEmptyName() throws Exception{
+        JSONObject request = new JSONObject();
+        request.put("name", "");
+        request.put("price", 350);
+
+        mockMvc.perform(post("/products")
+                .headers(httpHeaders)
+                .content(request.toString()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void get400WhenReplaceProductWithNegativePrice() throws Exception{
+        Product product = createProduct("Computer Science", 350);
+        productRepository.insert(product);
+
+        JSONObject request = new JSONObject();
+        request.put("name", "Computer SScience");
+        request.put("price", -100);
+
+        mockMvc.perform(put("/products/" + product.getId())
+                .headers(httpHeaders)
+                .content(request.toString()))
+                .andExpect(status().isBadRequest());
+    }
+
     private Product createProduct(String name, int price){
         Product product = new Product();
         product.setName(name);

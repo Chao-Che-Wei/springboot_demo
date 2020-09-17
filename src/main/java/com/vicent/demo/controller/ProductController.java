@@ -1,6 +1,7 @@
 package com.vicent.demo.controller;
 
 import com.vicent.demo.entity.Product;
+import com.vicent.demo.entity.ProductRequest;
 import com.vicent.demo.parameter.ProductQueryParameter;
 import com.vicent.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,7 +32,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product request){
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductRequest request){
 
         Product product = productService.createProduct(request);
 
@@ -45,7 +47,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> replceProduct(
-            @PathVariable("id") String id, @RequestBody Product request){
+            @PathVariable("id") String id, @Valid @RequestBody ProductRequest request){
 
         Product product = productService.replaceProduct(id, request);
         return ResponseEntity.ok().body(product);

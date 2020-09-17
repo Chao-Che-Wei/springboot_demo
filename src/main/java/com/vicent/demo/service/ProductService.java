@@ -1,6 +1,8 @@
 package com.vicent.demo.service;
 
+import com.vicent.demo.converter.ProductConverter;
 import com.vicent.demo.entity.Product;
+import com.vicent.demo.entity.ProductRequest;
 import com.vicent.demo.exception.ConflictException;
 import com.vicent.demo.exception.NotFoundException;
 import com.vicent.demo.parameter.ProductQueryParameter;
@@ -22,26 +24,19 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public Product createProduct(Product request) {
+    public Product createProduct(ProductRequest request) {
 
-        Product product = new Product();
-        product.setId(request.getId());
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-
+        Product product = ProductConverter.toProduct(request);
         return repository.insert(product);
     }
 
-    public Product replaceProduct(String id, Product request) {
+    public Product replaceProduct(String id, ProductRequest request) {
 
         Product oldProduct = getProduct(id);
+        Product newProduct = ProductConverter.toProduct(request);
+        newProduct.setId(oldProduct.getId());
 
-        Product product = new Product();
-        product.setId(oldProduct.getId());
-        product.setName(request.getName());
-        product.setPrice(request.getPrice());
-
-        return repository.save(product);
+        return repository.save(newProduct       );
     }
 
     public void deleteProduct(String id) {
