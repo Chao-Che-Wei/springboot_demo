@@ -1,1 +1,17 @@
 com\vicent\demo\Application.class
+com\vicent\demo\controller\MailController.class
+com\vicent\demo\service\MailService$1.class
+com\vicent\demo\service\MailService.class
+com\vicent\demo\service\ProductService.class
+com\vicent\demo\entity\ProductResponse.class
+com\vicent\demo\repository\MockProductDAO.class
+com\vicent\demo\controller\ProductController.class
+com\vicent\demo\config\MailConfig.class
+com\vicent\demo\converter\ProductConverter.class
+com\vicent\demo\entity\SendMailRequest.class
+com\vicent\demo\entity\ProductRequest.class
+com\vicent\demo\entity\Product.class
+com\vicent\demo\exception\NotFoundException.class
+com\vicent\demo\parameter\ProductQueryParameter.class
+com\vicent\demo\exception\ConflictException.class
+com\vicent\demo\repository\ProductRepository.class
