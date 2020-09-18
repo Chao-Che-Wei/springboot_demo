@@ -1,8 +1,10 @@
 package com.vicent.demo.controller;
 
+import com.vicent.demo.config.MailConfig;
 import com.vicent.demo.entity.SendMailRequest;
 import com.vicent.demo.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

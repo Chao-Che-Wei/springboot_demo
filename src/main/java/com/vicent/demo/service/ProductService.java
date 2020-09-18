@@ -16,11 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
 public class ProductService {
 
-    @Autowired
     private ProductRepository repository;
+
+    public ProductService(ProductRepository repository){
+        this.repository = repository;
+    }
 
     public Product getProduct(String id) {
         return repository.findById(id)
