@@ -2,10 +2,10 @@ package com.vicent.demo.config;
 
 import com.vicent.demo.service.MailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -93,7 +93,10 @@ public class MailConfig {
     }
     * */
     @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST,
+            proxyMode = ScopedProxyMode.TARGET_CLASS)
     public MailService mailService() throws Exception{
+        System.out.println("Create mail service.");
         return "yahoo".equals(platform)
                 ? yahoMailService()
                 : gmailService();
